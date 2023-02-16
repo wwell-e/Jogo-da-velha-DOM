@@ -1,11 +1,21 @@
 // Variáveis globais úteis
-const boardRegions = document.querySelectorAll('#gameBoard span')
+const boardRegions = document.querySelectorAll('#gameBoard span');
 let vBoard = []
-let turnPlayer = ''
+let turnPlayer = '';
+let scorePlayer1 = 0;
+let scorePlayer2 = 0;
+
+document.getElementById('player1Name').innerText = 'Jogador 1';
+document.getElementById('player2Name').innerText = 'Jogador 2';
 
 function updateTitle() {
-  const playerInput = document.getElementById(turnPlayer)
-  document.getElementById('turnPlayer').innerText = playerInput.value
+  const playerInput = document.getElementById(turnPlayer);
+  document.getElementById('turnPlayer').innerText = playerInput.value;
+
+  const playerName1 = document.getElementById('player1');
+  const playerName2 = document.getElementById('player2');
+  document.getElementById('player1Name').innerText = playerName1.value;
+  document.getElementById('player2Name').innerText = playerName2.value;
 }
 
 function initializeGame() {
@@ -91,8 +101,20 @@ function handleWin(regions) {
   })
   const playerName = document.getElementById(turnPlayer).value
   document.querySelector('h2').innerHTML = playerName + ' venceu!'
+  if (turnPlayer == "player1"){
+    scorePlayer1++;
+  }
 
- 
+  if (turnPlayer == "player2"){
+    scorePlayer2++;
+  }
+
+  console.log("Player 1 SCORE: " + scorePlayer1);
+  console.log("Player 2 SCORE: " + scorePlayer2);
+
+  document.getElementById("scorePlayer1").innerHTML = scorePlayer1;
+  document.getElementById("scorePlayer2").innerHTML = scorePlayer2;
+  
 }
 function handleBoardClick(ev) {
   // Obtém os índices da região clicada
@@ -123,6 +145,8 @@ function handleBoardClick(ev) {
   }else{
     document.querySelector('h2').innerHTML='Empate!'
   }
+
+
 }
 // Adiciona o evento no botão que inicia o jogo
 document.getElementById('start').addEventListener('click', initializeGame)
